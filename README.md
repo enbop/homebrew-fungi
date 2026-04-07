@@ -10,6 +10,8 @@ brew install fungi
 brew install --cask fungi-app
 ```
 
+If `fungi-app` was previously installed manually from GitHub Releases by dragging `Fungi App.app` into `/Applications`, remove that existing app first before installing the cask. Homebrew will not overwrite an app that is already present there.
+
 `fungi` and `fungi-app` are pinned to explicit GitHub Release versions and SHA-256 values.
 
 `fungi` and `fungi-app` are currently unsigned on macOS, so their casks clear the quarantine attribute in `postflight` for now. This is a temporary install path until proper Apple signing and notarization are added.
