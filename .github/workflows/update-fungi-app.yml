@@ -1,0 +1,37 @@
+name: Update fungi-app cask
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [update_fungi_app_tap]
+
+jobs:
+  update-fungi-app:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Update cask from latest fungi-app release
+        run: python3 scripts/update_cask.py fungi-app
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet -- Casks/fungi-app.rb; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          version=$(grep -E '^  version "' Casks/fungi-app.rb | sed -E 's/.*"([^"]+)".*/\1/')
+          git add Casks/fungi-app.rb
+          git commit -m "fungi-app: ${version}"
+          git push
