@@ -2,6 +2,15 @@ name: Update fungi-app cask
 
 on:
   workflow_dispatch:
+    inputs:
+      channel:
+        description: Release channel to sync
+        required: true
+        default: stable
+        type: choice
+        options:
+          - stable
+          - nightly
   repository_dispatch:
     types: [update_fungi_app_tap]
 
@@ -20,18 +29,31 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Resolve channel
+        id: channel
+        run: |
+          CHANNEL="${{ github.event.client_payload.channel || inputs.channel || 'stable' }}"
+          echo "channel=$CHANNEL" >> "$GITHUB_OUTPUT"
+          if [ "$CHANNEL" = "nightly" ]; then
+            echo "cask_path=Casks/fungi-app-nightly.rb" >> "$GITHUB_OUTPUT"
+            echo "package_name=fungi-app-nightly" >> "$GITHUB_OUTPUT"
+          else
+            echo "cask_path=Casks/fungi-app.rb" >> "$GITHUB_OUTPUT"
+            echo "package_name=fungi-app" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Update cask from latest fungi-app release
-        run: python3 scripts/update_cask.py fungi-app
+        run: python3 scripts/update_cask.py fungi-app --channel "${{ steps.channel.outputs.channel }}"
 
       - name: Commit changes
         run: |
-          if git diff --quiet -- Casks/fungi-app.rb; then
+          if git diff --quiet -- "${{ steps.channel.outputs.cask_path }}"; then
             echo "No changes to commit"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          version=$(grep -E '^  version "' Casks/fungi-app.rb | sed -E 's/.*"([^"]+)".*/\1/')
-          git add Casks/fungi-app.rb
-          git commit -m "fungi-app: ${version}"
+          version=$(grep -E '^  version "' "${{ steps.channel.outputs.cask_path }}" | sed -E 's/.*"([^"]+)".*/\1/')
+          git add "${{ steps.channel.outputs.cask_path }}"
+          git commit -m "${{ steps.channel.outputs.package_name }}: ${version}"
           git push
