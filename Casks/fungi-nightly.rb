@@ -1,9 +1,9 @@
 cask "fungi-nightly" do
   arch arm: "aarch64", intel: "x86_64"
 
-  version "2026.04.13.130657"
-  sha256 arm:   "0b13c28e5ceffd040f5bbaae967003da8aadeb55a1580c14e3b3feacdc2fc34f",
-         intel: "e8a7839e198d790a53e974c9e16fad130bd130fa4f11f7f98df2d5a569b7554a"
+  version "2026.04.15.145233"
+  sha256 arm:   "6f527e02c99feb728f7fd14fd4022074a60fa93230ab9afc2309d23c0297172a",
+         intel: "af05396c0b899e0a8b001be59b4656a86b2319f135076a7b9dae624ec60d8295"
 
   url "https://github.com/enbop/fungi/releases/download/nightly/fungi-macos-#{arch}.tar.gz",
       verified: "github.com/enbop/fungi/"
