@@ -18,7 +18,7 @@ brew install fungi-nightly
 brew install --cask fungi-app-nightly
 ```
 
-If `fungi-app` was previously installed manually from GitHub Releases by dragging `Fungi App.app` into `/Applications`, remove that existing app first before installing the cask. Homebrew will not overwrite an app that is already present there.
+If `fungi-app` was previously installed manually from GitHub Releases by dragging `Fungi.app` or `Fungi Dev.app` into `/Applications`, remove that existing app first before installing the cask. Homebrew will not overwrite an app that is already present there.
 
 Stable `fungi` and `fungi-app` are pinned to explicit GitHub Release versions and SHA-256 values.
 

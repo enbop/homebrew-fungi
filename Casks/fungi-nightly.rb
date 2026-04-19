@@ -11,7 +11,7 @@ cask "fungi-nightly" do
   desc "Nightly CLI and daemon for multi-device service access"
   homepage "https://github.com/enbop/fungi"
 
-  binary "fungi"
+  binary "fungi", target: "fungi-nightly"
 
   postflight do
     system_command "xattr",

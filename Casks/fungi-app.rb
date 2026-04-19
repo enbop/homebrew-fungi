@@ -7,15 +7,15 @@ cask "fungi-app" do
 
   url "https://github.com/enbop/fungi-app/releases/download/v#{version}/fungi-app-macos-#{arch}.tar.gz",
       verified: "github.com/enbop/fungi-app/"
-  name "Fungi App"
+  name "Fungi"
   desc "Official Flutter desktop app for Fungi"
   homepage "https://github.com/enbop/fungi-app"
 
-  app "Fungi App.app"
+  app "Fungi.app"
 
   postflight do
     system_command "xattr",
-                   args: ["-c", "#{appdir}/Fungi App.app"]
+                   args: ["-c", "#{appdir}/Fungi.app"]
   end
 
   zap trash: [
