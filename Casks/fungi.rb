@@ -2,8 +2,8 @@ cask "fungi" do
   arch arm: "aarch64", intel: "x86_64"
 
   version "0.7.0"
-  sha256 arm:   "7e5291fcc89109658d0e5875985b62200e8ae6765f510a451140d4d5fa5ca038",
-         intel: "b080394d356da79f5dd029f911f52cdfd3e7e77e31f7ee0d7a83928763c62ed5"
+  sha256 arm:   "2b728f8b5dc05155a01902d2934e95760f3318a88a8150928a0c79f17370a55a",
+         intel: "9e794b27938bae0e4f2b01ff635e8473363627a4d6eff00b50d4d247d4242238"
 
   url "https://github.com/enbop/fungi/releases/download/v#{version}/fungi-macos-#{arch}.tar.gz",
       verified: "github.com/enbop/fungi/"
